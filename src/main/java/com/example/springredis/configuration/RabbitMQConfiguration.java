@@ -1,6 +1,6 @@
-package com.truemoney.api.paymentcomposite.config;
+package com.example.springredis.configuration;
 
-import com.truemoney.api.paymentcomposite.messages.converters.ByteArrayToStringConverter;
+import com.example.springredis.messages.converters.ByteArrayToStringConverter;
 import org.springframework.amqp.core.AcknowledgeMode;
 import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory;

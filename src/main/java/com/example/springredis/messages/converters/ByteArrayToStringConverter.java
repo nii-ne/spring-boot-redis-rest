@@ -1,4 +1,4 @@
-package com.truemoney.api.paymentcomposite.messages.converters;
+package com.example.springredis.messages.converters;
 
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.support.converter.MessageConversionException;

@@ -6,14 +6,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import java.io.Serializable;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class User implements Serializable {
+public class User {
 
-	private static final long serialVersionUID = -305726463442998985L;
 	@JsonProperty("id")
 	private String id;
 	@JsonProperty("name")
