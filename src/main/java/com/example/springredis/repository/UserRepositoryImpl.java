@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 
 import javax.ws.rs.NotFoundException;
 import java.util.List;
-import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 @Repository
@@ -41,7 +40,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public void delete(String userId) {
-        if(!userTemplate.delete(getRedisKey(UUID.fromString(userId).toString()))) {
+        if(!userTemplate.delete(getRedisKey(userId))) {
             throw new NotFoundException("User does not exist in the DB");
         }
     }
