@@ -1,4 +1,4 @@
-package com.example.springredis.configuration;
+package com.example.springredis.configuration.rabbitMQ;
 
 import com.example.springredis.messages.converters.ByteArrayToStringConverter;
 import org.springframework.amqp.core.AcknowledgeMode;
@@ -18,31 +18,31 @@ import java.net.URISyntaxException;
 @EnableRabbit
 public class RabbitMQConfiguration {
 
-    @Value("${spring.rabbitmq.uri}")
+    @Value("${rabbitmq.uri}")
     String rabbitmqUri;
 
-    @Value("${spring.rabbitmq.username}")
+    @Value("${rabbitmq.username}")
     String rabbitmqUsername;
 
-    @Value("${spring.rabbitmq.password}")
+    @Value("${rabbitmq.password}")
     String rabbitmqPassword;
 
-    @Value("${spring.rabbitmq.virtual-host}")
+    @Value("${rabbitmq.virtual-host}")
     String rabbitmqVirtualHost;
 
-    @Value("${spring.rabbitmq.requested-heartbeat}")
+    @Value("${rabbitmq.requested-heartbeat}")
     Integer rabbitmqHeartBeat;
 
-    @Value("${spring.rabbitmq.concurrent_consumer}")
+    @Value("${rabbitmq.concurrent_consumer}")
     Integer rabbitmqConcurrentConsumer;
 
-    @Value("${spring.rabbitmq.max_concurrent_consumers}")
+    @Value("${rabbitmq.max_concurrent_consumers}")
     Integer rabbitmqMaxConcurrent;
 
-    @Value("${spring.rabbitmq.pre_fetch_count}")
+    @Value("${rabbitmq.pre_fetch_count}")
     Integer rabbitmqPrefetchCount;
 
-    @Value("${spring.rabbitmq.auto_startup}")
+    @Value("${rabbitmq.auto_startup}")
     boolean rabbitmqAutoStartup;
 
     @Bean

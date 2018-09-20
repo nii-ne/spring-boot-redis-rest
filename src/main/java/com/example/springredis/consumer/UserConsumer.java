@@ -16,11 +16,12 @@ public class UserConsumer {
     @Autowired
     private UserService userService;
 
-    @RabbitListener(queues = "${spring.rabbitmq.user-queue-name}", containerFactory = "rabbitListenerContainerFactory")
+    @RabbitListener(queues = "${rabbitmq.user-queue-name}", containerFactory = "rabbitListenerContainerFactory")
     public void receiveMessage(String message) {
         try{
-            User user = objectMapper.readValue(message, User.class);
-            userService.save(user);
+            System.err.println("QUEUE: "+message);
+            //User user = objectMapper.readValue(message, User.class);
+            //userService.save(user);
         }catch (Exception e){
             e.printStackTrace();
         }

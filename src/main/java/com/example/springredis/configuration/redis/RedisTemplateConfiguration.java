@@ -1,4 +1,4 @@
-package com.example.springredis.configuration;
+package com.example.springredis.configuration.redis;
 
 import com.example.springredis.configuration.redis.RedisProperties;
 import com.example.springredis.entities.User;
