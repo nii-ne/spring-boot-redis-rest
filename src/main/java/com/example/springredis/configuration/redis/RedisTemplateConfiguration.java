@@ -1,6 +1,8 @@
 package com.example.springredis.configuration;
 
+import com.example.springredis.configuration.redis.RedisProperties;
 import com.example.springredis.entities.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -14,11 +16,8 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 @Configuration
 public class RedisTemplateConfiguration {
 
-    @Value(value = "${redis.hostname}")
-    private String redisHostname;
-
-    @Value(value = "${redis.port}")
-    private int redisPort;
+    @Autowired
+    private RedisProperties redisProperties;
     @Bean
     public RedisTemplate<String, User> userTemplate() {
         RedisTemplate<String, User> template = new RedisTemplate<>();
@@ -29,7 +28,7 @@ public class RedisTemplateConfiguration {
 
     @Bean
     JedisConnectionFactory jedisConnectionFactory() {
-        RedisStandaloneConfiguration redisStandaloneConfiguration = new RedisStandaloneConfiguration(redisHostname, redisPort);
+        RedisStandaloneConfiguration redisStandaloneConfiguration = new RedisStandaloneConfiguration(redisProperties.getRedisHostname(), redisProperties.getRedisPort());
         return new JedisConnectionFactory(redisStandaloneConfiguration);
     }
 }

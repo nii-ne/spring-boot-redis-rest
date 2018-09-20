@@ -5,29 +5,24 @@ import java.util.UUID;
 
 import javax.ws.rs.NotFoundException;
 
+import com.example.springredis.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 
 import com.example.springredis.entities.User;
 
 @Service
 public class UserService {
-
 	@Autowired
-    private RedisTemplate<String, User> userTemplate;
-
-	private static final String REDIS_PREFIX_USERS = "users";
-
-	private static final String REDIS_KEYS_SEPARATOR = ":";
+	private UserRepository userRepository;
 
 	public List<User> findByPattern(final String pattern) {
-		return getValueOperations().multiGet(userTemplate.keys(getRedisKey(pattern)));
+		return userRepository.findByPattern(pattern);
 	}
 
 	public User findById(final String userId) {
-		final User user = getValueOperations().get(getRedisKey(UUID.fromString(userId).toString()));
+
+		final User user = userRepository.findById(UUID.fromString(userId).toString());
 		if(user == null) {
 			throw new NotFoundException("User does not exist in the DB");
 		}
@@ -36,26 +31,14 @@ public class UserService {
 
 	public void save(final User user) {
 		user.setId(UUID.randomUUID().toString());
-		getValueOperations().set(getRedisKey(user.getId()), user);
+		userRepository.save(user);
 	}
 
 	public void update(final User user) {
-		findById(user.getId());
-		getValueOperations().set(getRedisKey(user.getId()), user);
+		userRepository.update(user);
 	}
 
 	public void delete(final String userId) {
-		if(!userTemplate.delete(getRedisKey(UUID.fromString(userId).toString()))) {
-			throw new NotFoundException("User does not exist in the DB");
-		}
+		userRepository.delete(UUID.fromString(userId).toString());
 	}
-
-	private String getRedisKey(final String userId) {
-        return REDIS_PREFIX_USERS + REDIS_KEYS_SEPARATOR + userId;
-    }
-
-	private ValueOperations<String, User> getValueOperations() {
-		return userTemplate.opsForValue();
-	}
-
 }
